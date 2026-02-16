@@ -24,7 +24,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 22vh;
+  margin-bottom: 0;
   width: 100%; /* Adjusted width to prevent horizontal overflow */
   box-sizing: border-box; /* Ensure padding is included in the width */
 }
@@ -32,8 +32,8 @@
 .landing-title {
   font-size: 59px;
   font-weight: 400; /* Montserrat Bold */
-  margin-top: 12.5vh;
-  margin-bottom: 1vh;
+  margin-top: 0;
+  margin-bottom: 0;
   padding: 0 17vw;
   line-height: 1.1; /* Reduced line height for smaller spacing between lines */
 }
@@ -184,6 +184,5 @@
 }
 
 .landing-sector3-link:hover {
-  transform: scale(1.1); /* Efecto de agrandamiento al pasar el cursor */
-  transition: transform 0.3s ease; /* Transición suave para el efecto */
+  background-color: #E63900;
 }
