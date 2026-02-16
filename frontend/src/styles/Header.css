@@ -4,7 +4,8 @@
 /* General styles for the header */
 header {
   font-family: 'Montserrat', sans-serif;
-  background-color: #333;
+  background-color: rgba(51, 51, 51, 0.95); /* Fondo negro con mayor opacidad */
+  backdrop-filter: blur(10px); /* Aumentar el efecto de desenfoque */
   color: #fff;
   padding: 2.5vh 9vw;
   display: flex;
