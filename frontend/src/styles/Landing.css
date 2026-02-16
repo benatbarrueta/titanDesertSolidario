@@ -1,0 +1,194 @@
+/* Import Oswald font */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Oswald', sans-serif; /* Updated font to Oswald */
+  background: linear-gradient(to right, #0B0B0D, #3A2A1E); /* Updated gradient to match the specified colors */
+  color: #fff;
+  text-align: center;
+
+}
+
+.landing {
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5vh 5vw;
+  padding-bottom: 0;
+  margin-top: 10vh; /* Add margin to prevent content from being hidden behind the fixed header */
+  margin: 0 auto; /* Center the content horizontally */
+  max-width: 100%; /* Prevent extra width */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+.landing-sector1 {
+  height: 85vh; /* Make the section occupy the full viewport height */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 22vh;
+  width: 100%; /* Adjusted width to prevent horizontal overflow */
+  box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+.landing-title {
+  font-size: 59px;
+  font-weight: 400; /* Montserrat Bold */
+  margin-top: 12.5vh;
+  margin-bottom: 1vh;
+  padding: 0 17vw;
+  line-height: 1.1; /* Reduced line height for smaller spacing between lines */
+}
+
+.landing-subtitle {
+  font-size: 2.5vh;
+  font-weight: 400; /* Montserrat Regular */
+  margin-bottom: 4vh;
+  color: #E0B07A; /* Gold color */
+}
+
+.landing-obtained-money {
+  border: 2px solid #FF3B30;
+  border-radius: 20px;
+  padding: 3vh 3.5vw;
+  margin: 0 auto 5vh;
+  max-width: 80%;
+  background-color: #121417;
+}
+
+.obtained-money-title {
+  font-size: 2vh;
+  font-weight: 500; /* Montserrat Medium */
+  margin-top: 0;
+  color: #E0B07A; /* Gold color */
+}
+
+.obtained-money-amount {
+  font-size: 60px;
+  font-weight: 500; /* Montserrat Bold */
+  margin: 0;
+  color: #FF3B30;
+}
+
+.obtained-money-participations {
+  font-size: 1.5vh;
+  font-weight: 400; /* Montserrat Regular */
+  margin: 1vh 0 0;
+}
+
+.landing-navlinks {
+  display: flex;
+  justify-content: center; /* Center the buttons */
+  column-gap: 2rem; /* Add horizontal spacing between buttons */
+  margin-top: 5vh;
+  width: 100%; /* Ensure the container spans the full width */
+  max-width: 500px; /* Limit the maximum width of the container */
+}
+
+.landing-navlink-about, .landing-navlink-team {
+  display: inline-flex; /* Ensure buttons are treated as flex items */
+  justify-content: center;
+  align-items: center;
+  padding: 1.5vh 3vw;
+  border-radius: 50px;
+  font-size: 2vh;
+  font-weight: 500; /* Oswald Medium */
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  text-align: center; /* Center the text inside the buttons */
+}
+
+.landing-navlink-about {
+  background-color: #FF3B30;
+  color: #fff;
+  border: none;
+}
+
+.landing-navlink-team {
+  background-color: transparent;
+  color: #fff;
+  border: 2px solid #fff;
+}
+
+.landing-navlink-about:hover, .landing-navlink-team:hover {
+  transform: scale(1.1); /* Slightly increase the size on hover */
+  transition: transform 0.3s ease; /* Smooth scaling effect */
+}
+
+.landing-sector2 {
+  width: 100vw;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #1a1a1a;
+  padding: 8vh 10vw; /* Increased padding for more spacing */
+  column-gap: 8vw; /* Adjusted horizontal spacing between stats */
+}
+
+.landing-stat {
+  text-align: center;
+  color: #fff;
+}
+
+.landing-stat-number {
+  font-size: 5vh;
+  font-weight: 700; /* Oswald Bold */
+  color: #ff4500;
+  margin: 0;
+}
+
+.landing-stat-label {
+  font-size: 2vh;
+  font-weight: 400; /* Oswald Regular */
+  color: #E0B07A; /* Gold color */
+  margin: 0;
+}
+
+.landing-sector3 {
+  width: 100vw;
+  padding: 8vh 5vw;
+  margin-bottom: 0;
+  background-color: black;
+  text-align: center;
+}
+
+.landing-sector3-title {
+  font-size: 3.5vh;
+  font-weight: 700; /* Oswald Bold */
+  color: #fff;
+  margin-bottom: 2vh;
+}
+
+.landing-sector3-description {
+  font-size: 2vh;
+  font-weight: 400; /* Oswald Regular */
+  color: #E0B07A; /* Gold color */
+  margin-bottom: 4vh;
+}
+
+.landing-sector3-button {
+  margin-top: 3vh;
+}
+
+.landing-sector3-link {
+  display: inline-block;
+  padding: 1.5vh 3vw;
+  background-color: #FF3B30;
+  color: #fff;
+  font-size: 2vh;
+  font-weight: 500; /* Oswald Medium */
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+}
+
+.landing-sector3-link:hover {
+  background-color: #E63900;
+}

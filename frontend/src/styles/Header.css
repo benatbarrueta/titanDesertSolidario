@@ -1,0 +1,53 @@
+/* Import Montserrat font */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+/* General styles for the header */
+header {
+  font-family: 'Montserrat', sans-serif;
+  background-color: #333;
+  color: #fff;
+  padding: 2.5vh 9vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #ff4500; /* Added red line below the header */
+  position: fixed; /* Make the header stick to the top */
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000; /* Ensure it stays above other elements */
+  height: 10vh; /* Set a fixed height for the header */
+  line-height: 10vh; /* Center content vertically */
+  box-sizing: border-box; /* Include padding and border in height calculation */
+
+}
+
+header h1 {
+  font-size: 20px;
+  font-weight: 300; /* Montserrat SemiBold */
+  margin: 0; /* No change needed as it's already 0 */
+  color: #ff4500;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.8vw;
+}
+
+.nav-links a {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #ff4500; /* Highlight color on hover */
+}
+
+.nav-links a.active {
+  color: #ff4500; /* Active link color */
+  font-weight: 800; /* Montserrat Medium */
+}
