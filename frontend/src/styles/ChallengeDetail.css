@@ -1,0 +1,140 @@
+.challenge-detail {
+  font-family: 'Oswald', sans-serif;
+  color: #fff;
+  background: #0F0F0F;
+  width: 100vw;
+  min-height: 100vh;
+  padding: 20px;
+  margin: 0 auto;
+  margin-top: 10vh;
+  text-align: center;
+}
+
+.challenge-detail-title {
+  font-size: 3rem;
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
+.challenge-detail-description {
+  font-size: 1.2rem;
+  color: #E0B07A;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.challenge-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Ajusta el ancho mínimo y máximo de las tarjetas */
+  gap: 20px;
+  margin-top: 20px;
+  margin-bottom: 10vh; /* Agrega espacio entre las opciones y el formulario */
+}
+
+.challenge-options {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+  padding: 0 10vw;
+}
+
+.challenge-option-card {
+  width: 30vw;
+  margin: 0 auto; /* Centra las tarjetas dentro de su contenedor */
+  background-color: #181410;
+  border: 2px solid #E0B07A;
+  border-radius: 10px;
+  padding: 0.7vh 2vw;
+  text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.challenge-option-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.challenge-option-card.selected {
+  border-color: #FF3B30; /* Cambia el color del borde a rojo para la tarjeta seleccionada */
+}
+
+.challenge-option-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+.challenge-option-price {
+  background-color: #5a1a0a;
+  color: #FF3B30;
+  font-size: 0.6rem;
+  font-weight: bold;
+  padding: 0.7vh 1vw;
+  border-radius: 20px;
+}
+
+.challenge-option-description {
+  font-size: 1rem;
+  font-weight: 200;
+  color: #E0B07A;
+}
+
+.challenge-form {
+  margin-top: 30px;
+  padding: 20px; /* Agrega padding interno al formulario */
+  border: 2px solid #FF3B30;
+  border-radius: 10px;
+  background-color: #121417;
+  width: 60vw;
+  margin: 0 auto;
+}
+
+.challenge-form h2 {
+  font-size: 1.8rem;
+  color: #FF3B30;
+  margin-bottom: 20px;
+}
+
+.challenge-form label {
+  display: block;
+  margin-bottom: 10px;
+  text-align: left;
+  color: #E0B07A;
+  font-size: 1rem;
+  padding-bottom: 5px; /* Agrega espacio entre el label y el input */
+}
+
+.challenge-form input,
+.challenge-form select,
+.challenge-form textarea {
+  display: block; /* Asegura que el input esté en una nueva línea */
+  width: 100%;
+  padding: 12px; /* Se asegura que todos los elementos tengan padding */
+  margin-top: 5px; /* Espacio entre el label y el input */
+  margin-bottom: 15px;
+  border: 1px solid #E0B07A;
+  border-radius: 5px;
+  background-color: #1A1A1A;
+  color: #fff;
+  font-size: 1rem;
+  box-sizing: border-box; /* Asegura que el padding no afecte el tamaño total */
+}
+
+.challenge-form button {
+  background-color: #FF3B30;
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.challenge-form button:hover {
+    transform: scale(1.05); /* Efecto de agrandamiento al pasar el cursor */
+}

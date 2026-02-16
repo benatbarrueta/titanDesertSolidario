@@ -1,0 +1,80 @@
+.challenges {
+  font-family: 'Oswald', sans-serif; /* Updated font to Oswald */
+  color: #fff;
+  background: #0F0F0F;
+  text-align: center;
+  max-width: 100%;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  margin-top: 10vh;
+  padding: 0;
+  padding-top: 2vh;
+}
+
+.challenges-title {
+    font-size: 50px;
+    font-weight: 300; /* Oswald Bold */
+}
+
+.challenges-description {
+
+    font-weight: 100; /* Oswald Regular */
+    color: #E0B07A; /* Gold color */
+    margin-top: 10px;
+}
+
+.challenge-cards {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-top: 40px;
+  padding: 0 10vw;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Dos columnas de igual tamaño */
+  gap: 20px; /* Espaciado entre los elementos */
+}
+
+.challenge-card {
+    text-decoration: none;
+    color: white;
+  background-color: #202123;
+  gap: 25px;
+  margin-top: 20px;
+  padding: 2vh 2vw;
+  padding-bottom: 0;
+  border: 2px solid #fff;
+  border-radius: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave para el efecto de elevación */
+}
+
+.challenge-card-icon {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+.challenge-card-title {
+    font-size: 21px;
+    font-weight: 300; /* Oswald Bold */
+    margin-top: 10px;
+    color: #fff;
+}
+
+.challenge-card-text {
+    font-size: 13px;
+    font-weight: 100; /* Oswald Regular */
+    color: #E0B07A; /* Gold color */
+    margin-top: 10px;
+}
+
+.challenge-card-price {
+    font-size: 16px;
+    font-weight: 600; /* Oswald Regular */
+    color: #ff4500; /* Red color */
+    margin-top: 10px;
+}
+
+.challenge-card:hover {
+  transform: translateY(-10px); /* Levanta la tarjeta 10px al pasar el cursor */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Agrega una sombra para resaltar el efecto */
+}

@@ -8,6 +8,7 @@ import Landing from './components/Landing.js';
 import Team from './components/Team.js';
 import Challenges from './components/Challenges.js';
 import About from './components/About.js';
+import ChallengeDetail from './components/ChallengeDetail';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/team" element={<Team />} />
           <Route path="/about" element={<About />} />
           <Route path="/challenges" element={<Challenges />} />
+          <Route path="/challenges/:challengeId" element={<ChallengeDetail />} />
         </Routes>
       </Router>
     </div>

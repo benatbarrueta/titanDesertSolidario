@@ -18,7 +18,7 @@ const Landing = () => {
                 </div>
 
                 <div className="landing-navlinks">
-                    <NavLink to="/about" className="landing-navlink-about">Participa Ahora 🔥 </NavLink>
+                    <NavLink to="/challenges" className="landing-navlink-about">Participa Ahora 🔥 </NavLink>
                     <NavLink to="/team" className="landing-navlink-team">Ver Equipo 👥</NavLink>
                 </div>
             </div>

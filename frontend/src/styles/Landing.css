@@ -1,27 +1,21 @@
 /* Import Oswald font */
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap');
 
-body {
-  margin: 0;
-  padding: 0;
+.landing {
   font-family: 'Oswald', sans-serif; /* Updated font to Oswald */
-  background: linear-gradient(to right, #0B0B0D, #3A2A1E); /* Updated gradient to match the specified colors */
   color: #fff;
   text-align: center;
-
-}
-
-.landing {
   max-width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 5vh 5vw;
   padding-bottom: 0;
-  margin-top: 10vh; /* Add margin to prevent content from being hidden behind the fixed header */
   margin: 0 auto; /* Center the content horizontally */
+  margin-top: 10vh; /* Add margin to prevent content from being hidden behind the fixed header */
   max-width: 100%; /* Prevent extra width */
   overflow-x: hidden; /* Prevent horizontal scrolling */
+  background: linear-gradient(to right, #0B0B0D, #3A2A1E); /* Updated gradient to match the specified colors */
 }
 
 .landing-sector1 {
@@ -190,5 +184,6 @@ body {
 }
 
 .landing-sector3-link:hover {
-  background-color: #E63900;
+  transform: scale(1.1); /* Efecto de agrandamiento al pasar el cursor */
+  transition: transform 0.3s ease; /* Transición suave para el efecto */
 }
