@@ -1,0 +1,55 @@
+# Node.js
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+venv/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Environment variables
+.env
+
+# Build
+build/
+dist/
+
+# Coverage
+coverage/
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*.swn
+*.sublime-workspace
+*.sublime-project
+
+# Docker
+*.pid
+*.seed
+
+# Misc
+*.bak
+*.tmp
+*.lock
+*.log
+*.cache
+*.out
+*.pid
+*.seed
+*.swp
+*.swo
+*.swn
+*.sublime-workspace
+*.sublime-project
