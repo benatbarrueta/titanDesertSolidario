@@ -9,3 +9,12 @@ class WarriorBase(BaseModel):
 
     class Config:
         from_attributes = True
+
+class WarriorOut(BaseModel):
+    id: str
+    dorsal: int
+    name: str
+    raised: float
+
+    class Config:
+        from_attributes = True

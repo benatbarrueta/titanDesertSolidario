@@ -2,11 +2,11 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 from app.db.session import get_db
 from app.repositories.challenge_repo import get_all_challenges, get_challenge_by_id
-from app.schemas.challenge import ChallengeBase, ChallengeDetail
+from app.schemas.challenge import ChallengeBase, ChallengeDetail, ChallengeListItem
 
 router = APIRouter()
 
-@router.get("/", response_model=list[ChallengeBase])
+@router.get("/", response_model=list[ChallengeListItem])
 def list_challenges(db: Session = Depends(get_db)):
     return get_all_challenges(db)
 

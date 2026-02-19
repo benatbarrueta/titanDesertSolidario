@@ -4,6 +4,7 @@ from app.db.models import Challenge, ChallengeOption, Participation, Warrior
 from app.repositories.participation_repo import create_participation
 from app.schemas.participation import ParticipationCreate
 from datetime import datetime
+import json
 
 def create_new_participation(db: Session, participation_data: ParticipationCreate):
     # Validate challenge exists and is active
@@ -36,7 +37,7 @@ def create_new_participation(db: Session, participation_data: ParticipationCreat
         option_id=participation_data.option_id,
         participant_name=participation_data.participant_name,
         email=participation_data.email,
-        prediction_json=str(participation_data.prediction),
+        prediction_json=json.dumps(participation_data.prediction, ensure_ascii=False),
         amount=participation_data.amount,
         message=participation_data.message,
         created_at=datetime.utcnow()

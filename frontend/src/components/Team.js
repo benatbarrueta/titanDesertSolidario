@@ -1,30 +1,27 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../styles/Team.css';
+import { apiClient } from '../apiClient';
 
 const Team = () => {
-  // Mock de 25 “guerreros”
-  const warriors = useMemo(() => {
-    const names = [
-      'Ana Martínez', 'Carlos Ruiz', 'Elena López', 'Miguel Sánchez', 'Laura García',
-      'David Torres', 'Sofía Jiménez', 'Javier Morales', 'Carmen Vega', 'Roberto Díaz',
-      'Paula Romero', 'Álvaro Navarro', 'Lucía Ortega', 'Daniel Castro', 'Marta Rivas',
-      'Iván Herrera', 'Nuria Molina', 'Hugo Santos', 'Claudia Ramos', 'Sergio Gil',
-      'Irene León', 'Pablo Serra', 'Aitana Cruz', 'Marcos Vidal', 'Noa Fuentes'
-    ];
-
-    const dorsalsStart = 101;
-
-    return names.map((name, i) => ({
-      id: `${dorsalsStart + i}`,
-      dorsal: dorsalsStart + i,
-      name,
-      raised: 0 // mock
-    }));
-  }, []);
+  const [warriors, setWarriors] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-          window.scrollTo(0, 0);
-      }, []);
+    window.scrollTo(0, 0);
+    apiClient.getWarriors()
+      .then(data => {
+        setWarriors(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) return <p>Cargando...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="team-page">

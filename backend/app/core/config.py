@@ -1,7 +1,14 @@
 import os
-from pydantic_settings import BaseSettings
 
-class Settings(BaseSettings):
-    SQLITE_DB_PATH: str = os.getenv("SQLITE_DB_PATH", "../runtime/db/titan_desert_solidario.db")
+BASE_DIR = os.path.dirname(
+    os.path.dirname(
+        os.path.dirname(
+            os.path.dirname(__file__)
+        )
+    )
+)
 
-settings = Settings()
+SQLITE_DB_PATH = os.environ.get(
+    "SQLITE_DB_PATH",
+    os.path.join(BASE_DIR, "titanDB", "data", "titan_desert_solidario.db")
+)

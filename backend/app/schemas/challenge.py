@@ -24,3 +24,13 @@ class ChallengeBase(BaseModel):
 class ChallengeDetail(ChallengeBase):
     description: str
     options: List[ChallengeOptionBase]
+
+class ChallengeListItem(BaseModel):
+    id: str
+    title: str
+    icon: str
+    min_price: float
+    options_count: int
+
+    class Config:
+        from_attributes = True

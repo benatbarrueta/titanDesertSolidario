@@ -1,22 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import "../styles/Challenges.css";
+import { apiClient } from "../apiClient";
 
 const Challenges = () => {
+  const [challenges, setChallenges] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     window.scrollTo(0, 0);
+    apiClient.getChallenges()
+      .then(data => {
+        setChallenges(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError(err.message);
+        setLoading(false);
+      });
   }, []);
 
-  const cards = [
-    { title: "ORDEN Y POSICIÓN", challengeNumber: 4, icon: "🏁" },
-    { title: "TIEMPOS", challengeNumber: 3, icon: "⏱️" },
-    { title: "KILÓMETROS", challengeNumber: 3, icon: "📍" },
-    { title: "AVERIAS E INCIDENTES", challengeNumber: 3, icon: "🔧" },
-    { title: "MOMENTOS VIRALES", challengeNumber: 4, icon: "😅" },
-    { title: "MENTAL Y RESISTENCIA", challengeNumber: 3, icon: "🧠" },
-    { title: "DUELOS ENTRE CORREDORES", challengeNumber: 3, icon: "👥" },
-    { title: "RETOS DE EQUIPO", challengeNumber: 3, icon: "🏜️" },
-  ];
+  if (loading) return <p>Cargando...</p>;
+  if (error) return <p>Error: {error}</p>;
 
   const colors = ["red", "orange", "yellow", "green", "purple", "violet", "hotpink", "cyan"];
 
@@ -38,25 +44,22 @@ const Challenges = () => {
       </p>
 
       <div className="challenge-cards">
-        {cards.map((card, index) => {
+        {challenges.map((card, index) => {
           const color = colors[index % colors.length];
 
           return (
             <NavLink
-              key={card.title}
-              to={`/challenges/${slugify(card.title)}`}
+              key={card.id}
+              to={`/challenges/${card.id}`}
               className="challenge-card"
               style={{ borderColor: color }}
             >
-              {/* Alias: challenge-card-icon (CSS actual) + challenge-icon (por compatibilidad) */}
-              <div className="challenge-card-icon challenge-icon">{card.icon}</div>
+              <div className="challenge-card-icon challenge-icon" style={{ color }}>
+                {card.icon}
+              </div>
+              <h2 className="challenge-title">{card.icon} {card.title}</h2>
+              <p className="challenge-card-text">{card.options_count} retos</p>
 
-              {/* Usar clase del CSS */}
-              <div className="challenge-card-title">{card.title}</div>
-
-              <div className="challenge-card-text">{card.challengeNumber} retos disponibles</div>
-
-              {/* Alias: challenge-card-price (CSS actual) + challenge-price (por compatibilidad) */}
               <div className="challenge-card-price challenge-price" style={{ color }}>
                 Desde €5 →
               </div>
