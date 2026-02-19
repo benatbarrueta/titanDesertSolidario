@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap');
+
+.about-page {
+  font-family: 'Oswald', sans-serif;
+  color: #fff;
+  background: #0F0F0F; /* MISMO FONDO QUE challenge-detail */
+  
+  width: 100%;
+  min-height: 100vh;
+  
+  padding: 20px;
+  margin: 0 auto;
+  margin-top: 10vh;
+
+  text-align: center;
+}
+
+.about-hero {
+  width: 100%;
+  padding: 0;
+  background: transparent; /* IMPORTANTE: no “ensuciar” el fondo */
+}
+
+.about-page, .about-page * {
+  box-sizing: border-box; /* Asegura que el padding no afecte al tamaño total de los elementos */
+}
+
+.about-hero-inner {
+  max-width: 100%;
+  margin: 0 auto;
+  text-align: center; /* como en challenge-detail */
+}
+
+.about-title {
+  font-size: 3rem;
+  font-weight: 300;
+  margin: 20px 0 20px; /* clave: elimina margen superior */
+}
+
+/* Cards container */
+.about-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 4vh;
+  align-items: center;
+}
+
+/* Base card */
+.about-card {
+  width: 100%;
+  max-width: 850px;
+
+  background: #121417;
+  border-radius: 20px;
+  padding: 4vh 4vw;
+
+  text-align: left;
+
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Titles */
+.about-card-title {
+  margin: 0 0 1.5vh;
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.about-card-title--accent {
+  color: #FF3B30;
+}
+
+/* Text */
+.about-card-text {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.about-card-subtitle {
+  margin: 1vh 0 2.5vh;
+  font-size: 16px;
+  color: #E0B07A;
+}
+
+/* Red left border like screenshot */
+.about-card--left-accent {
+  border-left: 4px solid #FF3B30;
+}
+
+/* List */
+.about-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 1.5vh;
+}
+
+.about-list-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.about-check {
+  font-size: 18px;
+}
+
+/* CTA card */
+.about-card--cta {
+  text-align: center;
+  padding: 5vh 4vw;
+}
+
+.about-cta-text {
+  margin: 0 0 3vh;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.about-cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 14px 32px;
+  border-radius: 50px;
+
+  background-color: #FF3B30;
+  color: #fff;
+
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+
+  transition: all 0.3s ease;
+
+  max-width: 100%;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.about-cta-button:hover {
+  background-color: #E63900;
+  transform: scale(1.05);
+}
+
+.about-cta-arrow {
+  font-size: 18px;
+}

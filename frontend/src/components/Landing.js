@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import '../styles/Landing.css';
 
 const Landing = () => {
+    useEffect(() => {
+            window.scrollTo(0, 0);
+    }, []);
+        
     return (
         <div className="landing">
             <div className="landing-sector1">

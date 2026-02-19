@@ -37,13 +37,15 @@ const mockChallenges = [
         id: '1',
         name: 'Tiempo total de [Corredor]',
         description: 'Predice el tiempo total de un corredor.',
-        type: 'text'
+        type: 'ranking',
+        numberOfSelections: 1
       },
       {
         id: '2',
         name: 'Tiempo hasta primer pinchazo',
         description: 'Adivina el tiempo hasta el primer pinchazo.',
-        type: 'text'
+        type: 'ranking',
+        numberOfSelections: 1
       }
     ]
   }
