@@ -87,7 +87,7 @@
   display: inline-flex; /* Ensure buttons are treated as flex items */
   justify-content: center;
   align-items: center;
-  padding: 1.5vh 3vw;
+  padding: 1.5vh 2.5vw;
   border-radius: 50px;
   font-size: 2vh;
   font-weight: 500; /* Oswald Medium */

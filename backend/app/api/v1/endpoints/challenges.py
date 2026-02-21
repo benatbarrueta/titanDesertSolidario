@@ -10,9 +10,9 @@ router = APIRouter()
 def list_challenges(db: Session = Depends(get_db)):
     return get_all_challenges(db)
 
-@router.get("/{id}", response_model=ChallengeDetail)
-def get_challenge(id: str, db: Session = Depends(get_db)):
-    challenge = get_challenge_by_id(db, id)
+@router.get("/{challenge_id}", response_model=ChallengeDetail)
+def get_challenge(challenge_id: str, db: Session = Depends(get_db)):
+    challenge = get_challenge_by_id(db, challenge_id)
     if not challenge:
         raise HTTPException(status_code=404, detail="Challenge not found")
     return challenge

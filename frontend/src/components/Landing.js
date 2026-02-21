@@ -66,6 +66,7 @@ const Landing = () => {
 
             <div className="landing-sector3">
                 <h2 className="landing-sector3-title">PARTICIPA EN LOS RETOS SOLIDARIOS</h2>
+                <NavLink to="/challenges" className="landing-navlink-about">Ver todos los retos</NavLink>
             </div>
         </div>
     );

@@ -1,15 +1,15 @@
 from pydantic import BaseModel, EmailStr, Field
-from typing import Optional, Dict
+from typing import Optional, Any
 from datetime import datetime
 
 class ParticipationBase(BaseModel):
     challenge_id: str
     option_id: int
     participant_name: str
-    email: Optional[EmailStr]
-    prediction: Dict[str, list]
+    email: EmailStr
+    prediction: Any
     amount: float = Field(..., ge=0)
-    message: Optional[str]
+    message: Optional[str] = None
 
 class ParticipationCreate(ParticipationBase):
     pass
