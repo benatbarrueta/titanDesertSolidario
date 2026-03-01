@@ -111,3 +111,62 @@
     padding: 0 4vw;
   }
 }
+
+/* =========================
+   MOBILE FIXES
+   ========================= */
+@media (max-width: 768px) {
+  .challenges {
+    margin-top: 70px;              /* altura header móvil */
+    padding: 16px;
+    padding-top: 12px;
+    min-height: calc(100vh - 70px);
+  }
+
+  .challenges-title {
+    font-size: 2rem;
+    margin: 14px 0 18px;
+    line-height: 1.1;
+  }
+
+  .challenges-description {
+    font-size: 0.95rem;
+    margin-top: 0;
+  }
+
+  .challenge-cards {
+    margin-top: 22px;
+    padding: 0;                    /* evitar el 10vw que en móvil rompe */
+    grid-template-columns: 1fr;    /* siempre 1 columna en móvil */
+    gap: 14px;
+  }
+
+  .challenge-card {
+    width: 100%;
+    padding: 16px 14px;
+    border-radius: 18px;
+  }
+
+  .challenge-card-icon,
+  .challenge-icon {
+    font-size: 44px;
+    margin-bottom: 8px;
+  }
+
+  .challenge-card-title {
+    font-size: 1.2rem;
+    margin-top: 6px;
+  }
+
+  .challenge-card-text {
+    font-size: 0.9rem;
+    margin-top: 6px;
+  }
+
+  .challenge-card-price,
+  .challenge-price {
+    font-size: 1rem;
+    margin-top: 10px;
+    margin-bottom: 0;
+  }
+}

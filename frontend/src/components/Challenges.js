@@ -26,15 +26,6 @@ const Challenges = () => {
 
   const colors = ["red", "orange", "yellow", "green", "purple", "violet", "hotpink", "cyan"];
 
-  const slugify = (str) =>
-    str
-      .normalize("NFD")
-      .replace(/\p{Diacritic}/gu, "")
-      .toLowerCase()
-      .trim()
-      .replace(/\s+/g, "-")
-      .replace(/[^a-z0-9-]/g, "");
-
   return (
     <div className="challenges">
       <h1 className="challenges-title">ELIGE TU RETO SOLIDARIO</h1>
@@ -57,7 +48,7 @@ const Challenges = () => {
               <div className="challenge-card-icon challenge-icon" style={{ color }}>
                 {card.icon}
               </div>
-              <h2 className="challenge-title">{card.icon} {card.title}</h2>
+              <h2 className="challenge-card-title">{card.icon} {card.title}</h2>
               <p className="challenge-card-text">{card.options_count} retos</p>
 
               <div className="challenge-card-price challenge-price" style={{ color }}>
