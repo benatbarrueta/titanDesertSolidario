@@ -36,3 +36,13 @@
     transform: rotate(360deg);
   }
 }
+
+@media (max-width: 600px) {
+  html, body {
+    overflow-x: hidden;
+  }
+
+  * {
+    max-width: 100%;
+  }
+}
