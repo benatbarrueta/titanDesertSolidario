@@ -9,7 +9,12 @@ app = FastAPI(title="Titan Desert Solidario API")
 # CORS configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origin_regex=r"^http://localhost(:\d+)?$",
+    allow_origins=[
+        "https://rumbomarruecos.es",
+        "https://www.rumbomarruecos.es",
+        "http://localhost:3000",
+        "http://localhost:8080",
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

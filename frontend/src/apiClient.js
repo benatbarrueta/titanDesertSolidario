@@ -1,4 +1,4 @@
-const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:8000/api/v1";
+const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "/api/v1";
 
 const apiFetch = async (endpoint, options = {}) => {
   const url = `${API_BASE_URL}${endpoint}`;
@@ -23,7 +23,6 @@ export const apiClient = {
   getStats: () => apiFetch("/stats/"),
   getStages: () => apiFetch("/stages/"),
   getWarriors: () => apiFetch("/warriors/"),
-  getStages: () => apiFetch("/stages/"),
   getChallenges: () => apiFetch("/challenges/"),
   getChallengeById: (id) => apiFetch(`/challenges/${id}`),
   createParticipation: (data) =>
