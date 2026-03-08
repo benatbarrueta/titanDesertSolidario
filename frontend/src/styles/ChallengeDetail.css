@@ -129,7 +129,7 @@
   box-sizing: border-box; /* Asegura que el padding no afecte el tamaño total */
 }
 
-.challenge-form button {
+.challenge-submit-button {
   background-color: #FF3B30;
   color: #fff;
   font-size: 1.2rem;
@@ -138,9 +138,143 @@
   border: none;
   border-radius: 50px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-.challenge-form button:hover {
-    transform: scale(1.05); /* Efecto de agrandamiento al pasar el cursor */
+.challenge-submit-button:hover {
+  transform: scale(1.05);
+}
+
+/* =========================
+   MOBILE OVERRIDES
+   ========================= */
+@media (max-width: 768px) {
+  /* 1) Evita que el body “asome” blanco en móvil */
+  html, body {
+    background: #0F0F0F;
+  }
+
+  /* 2) Offset correcto para el header móvil (70px) */
+  .challenge-detail {
+    background: #0F0F0F;
+    padding: 16px;
+    margin-top: 70px;                 /* header móvil */
+    min-height: calc(100dvh - 70px);  /* ✅ usa dvh para móviles */
+  }
+
+  /* 3) Título y descripción sin quedar cortados */
+  .challenge-detail-title {
+    font-size: 2rem;
+    margin: 10px 0 10px;
+    line-height: 1.1;
+  }
+
+  .challenge-detail-description {
+    font-size: 1rem;
+    line-height: 1.45;
+    margin-bottom: 12px;
+  }
+
+  /* 4) Cards a una columna y sin paddings raros */
+  .challenge-options {
+    grid-template-columns: 1fr !important;
+    gap: 14px;
+    padding: 0 !important;
+    margin-top: 18px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .challenge-option-card {
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  /* 5) Badge precio más compacto */
+  .challenge-option-price {
+    font-size: 0.85rem;
+    padding: 6px 10px;
+    white-space: nowrap;
+  }
+
+  /* 6) Form al 100% (si aparece) */
+  .challenge-form {
+    max-width: 100%;
+    margin-top: 18px;
+    padding: 14px;
+    border-radius: 14px;
+  }
+
+  .challenge-form input,
+  .challenge-form select,
+  .challenge-form textarea {
+    font-size: 16px; /* evita zoom iOS */
+  }
+
+  .challenge-form button,
+  .challenge-submit-button {
+    width: 100%;
+    padding: 14px 16px;
+    font-size: 1rem;
+  }
+}
+
+/* =========================
+   MOBILE FORM FIX
+   ========================= */
+@media (max-width: 600px) {
+  /* Evita que iOS “encoja” texto raro */
+  .challenge-detail {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  /* El form tiene que ocupar el ancho real del móvil */
+  .challenge-form {
+    width: 100%;
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 18px 14px;
+    border-width: 2px;
+    border-radius: 14px;
+  }
+
+  .challenge-form h2 {
+    font-size: 1.35rem;
+    margin-bottom: 14px;
+  }
+
+  .challenge-form label {
+    font-size: 1.05rem;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    padding-bottom: 0;
+  }
+
+  /* Inputs grandes y cómodos en móvil */
+  .challenge-form input,
+  .challenge-form select,
+  .challenge-form textarea {
+    width: 100%;
+    font-size: 16px;          /* clave: evita zoom y se lee bien */
+    padding: 14px 12px;
+    min-height: 48px;         /* “tap target” móvil */
+    border-radius: 10px;
+    margin-top: 8px;
+    margin-bottom: 14px;
+  }
+
+  .challenge-form textarea {
+    min-height: 110px;
+    resize: vertical;
+  }
+
+  /* Botón ancho completo */
+  .challenge-form button,
+  .challenge-submit-button {
+    width: 100%;
+    min-height: 52px;
+    font-size: 1rem;
+    padding: 14px 16px;
+  }
 }

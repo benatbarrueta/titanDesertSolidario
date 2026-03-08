@@ -1,10 +1,19 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
-import "../styles/ChallengeDetail.css";
 import { apiClient } from "../apiClient";
+
+import "../styles/ChallengeDetail.css";
+
+import MobilePicker from "../components/MobilePicker";
+import useIsMobile from "../hooks/useIsMobile";
 
 const ChallengeDetail = () => {
   const { challengeId } = useParams();
+
+  const isMobile = useIsMobile(768);
+
+  // drawer state
+  const [pickerOpen, setPickerOpen] = useState(null); // "subjectWarrior" | "subjectStage" | "answerStage" | "choice" | `pick-${i}` | "boolStage"
 
   const [challenge, setChallenge] = useState(null);
   const [warriors, setWarriors] = useState([]);
@@ -32,6 +41,8 @@ const ChallengeDetail = () => {
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
 
+  const closePicker = () => setPickerOpen(null);
+
   // Load: challenge + warriors + stages
   useEffect(() => {
     setLoading(true);
@@ -50,6 +61,7 @@ const ChallengeDetail = () => {
     setSelections([]);
     setValue("");
     setAnswerStageId("");
+    closePicker();
 
     Promise.all([
       apiClient.getChallengeById(challengeId),
@@ -58,8 +70,8 @@ const ChallengeDetail = () => {
     ])
       .then(([challengeData, warriorsData, stagesData]) => {
         setChallenge(challengeData);
-        setWarriors(warriorsData);
-        setStages(stagesData);
+        setWarriors(warriorsData || []);
+        setStages(stagesData || []);
         setAmount(String(challengeData?.price ?? ""));
         setLoading(false);
       })
@@ -89,6 +101,7 @@ const ChallengeDetail = () => {
     setSubjectStageId("");
     setValue("");
     setAnswerStageId("");
+    closePicker();
 
     if (selectedOption.answer_type === "warrior_pick") {
       const n = selectedOption.number_of_selections ?? 1;
@@ -143,15 +156,10 @@ const ChallengeDetail = () => {
         prediction.value = String(value);
         break;
 
-      case "number": {
+      case "number":
+      case "time":
         prediction.value = parseNumber(value);
         break;
-      }
-
-      case "time": {
-        prediction.value = parseNumber(value); // seconds numeric
-        break;
-      }
 
       case "boolean":
         prediction.value = value === true || value === "true";
@@ -291,6 +299,7 @@ const ChallengeDetail = () => {
       const fixed = selectedOption?.config?.fixed_stage_id;
       setAnswerStageId(fixed || "");
       setMessage("");
+      closePicker();
     } catch (err) {
       setError(err.message || "No se pudo registrar la participación");
     } finally {
@@ -302,40 +311,100 @@ const ChallengeDetail = () => {
   if (error && !challenge) return <p>Error: {error}</p>;
   if (!challenge) return <p>Reto no encontrado</p>;
 
+  const stageOptions = stages
+    .slice()
+    .sort((a, b) => a.stage_number - b.stage_number)
+    .map((s) => ({
+      value: s.id,
+      label: `Etapa ${s.stage_number} · ${s.name}`,
+      subLabel: s.distance_km ? `${s.distance_km}km` : undefined,
+    }));
+
   const renderSubjectFields = () => {
     if (!selectedOption) return null;
 
     return (
       <>
+        {/* SUBJECT: warrior */}
         {requiresSubjectWarrior(selectedOption) && (
-          <label>
-            Corredor *
-            <select required value={subjectWarriorId} onChange={(e) => setSubjectWarriorId(e.target.value)}>
-              <option value="">Selecciona corredor...</option>
-              {warriors.map((w) => (
-                <option key={w.id} value={w.id}>
-                  {w.name}
-                </option>
-              ))}
-            </select>
-          </label>
+          <>
+            {isMobile ? (
+              <MobilePicker
+                label="Corredor *"
+                placeholder="Selecciona corredor..."
+                value={subjectWarriorId}
+                displayValue={warriors.find((w) => w.id === subjectWarriorId)?.name || ""}
+                options={warriors.map((w) => ({
+                  value: w.id,
+                  label: w.name,
+                  subLabel: w.dorsal ? `#${w.dorsal}` : undefined,
+                }))}
+                isOpen={pickerOpen === "subjectWarrior"}
+                onOpen={() => setPickerOpen("subjectWarrior")}
+                onClose={closePicker}
+                onSelect={(val) => setSubjectWarriorId(val)}
+              />
+            ) : (
+              <label>
+                Corredor *
+                <select
+                  required
+                  value={subjectWarriorId}
+                  onChange={(e) => setSubjectWarriorId(e.target.value)}
+                >
+                  <option value="">Selecciona corredor...</option>
+                  {warriors.map((w) => (
+                    <option key={w.id} value={w.id}>
+                      {w.name}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
+          </>
         )}
 
+        {/* SUBJECT: stage */}
         {requiresSubjectStage(selectedOption) && (
-          <label>
-            Etapa *
-            <select required value={subjectStageId} onChange={(e) => setSubjectStageId(e.target.value)}>
-              <option value="">Selecciona etapa...</option>
-              {stages
-                .slice()
-                .sort((a, b) => a.stage_number - b.stage_number)
-                .map((s) => (
-                  <option key={s.id} value={s.id}>
-                    {`Etapa ${s.stage_number} · ${s.name} (${s.distance_km}km)`}
-                  </option>
-                ))}
-            </select>
-          </label>
+          <>
+            {isMobile ? (
+              <MobilePicker
+                label="Etapa *"
+                placeholder="Selecciona etapa..."
+                value={subjectStageId}
+                displayValue={
+                  (() => {
+                    const s = stages.find((x) => x.id === subjectStageId);
+                    return s ? `Etapa ${s.stage_number} · ${s.name}` : "";
+                  })()
+                }
+                options={stageOptions}
+                isOpen={pickerOpen === "subjectStage"}
+                onOpen={() => setPickerOpen("subjectStage")}
+                onClose={closePicker}
+                onSelect={(val) => setSubjectStageId(val)}
+              />
+            ) : (
+              <label>
+                Etapa *
+                <select
+                  required
+                  value={subjectStageId}
+                  onChange={(e) => setSubjectStageId(e.target.value)}
+                >
+                  <option value="">Selecciona etapa...</option>
+                  {stages
+                    .slice()
+                    .sort((a, b) => a.stage_number - b.stage_number)
+                    .map((s) => (
+                      <option key={s.id} value={s.id}>
+                        {`Etapa ${s.stage_number} · ${s.name} (${s.distance_km}km)`}
+                      </option>
+                    ))}
+                </select>
+              </label>
+            )}
+          </>
         )}
       </>
     );
@@ -349,78 +418,162 @@ const ChallengeDetail = () => {
     switch (opt.answer_type) {
       case "warrior_pick": {
         const n = opt.number_of_selections ?? 1;
+
         return (
-          <label>
-            Predicción *
-            <>
-              {Array.from({ length: n }, (_, i) => (
-                <select
-                  key={i}
-                  required
-                  value={selections[i] ?? ""}
-                  onChange={(e) => {
-                    const warriorId = e.target.value;
-                    setSelections((prev) => {
-                      const next = [...prev];
-                      next[i] = warriorId;
-                      return next;
-                    });
-                  }}
-                >
-                  <option value="">{`Selecciona corredor ${i + 1}...`}</option>
-                  {warriors.map((w) => {
-                    const alreadySelected = selections.includes(w.id) && selections[i] !== w.id;
-                    return (
-                      <option key={w.id} value={w.id} disabled={alreadySelected}>
-                        {w.name}
-                      </option>
-                    );
-                  })}
-                </select>
-              ))}
-            </>
-          </label>
+          <div>
+            <div style={{ color: "#E0B07A", textAlign: "left", marginBottom: 8 }}>
+              Predicción *
+            </div>
+
+            {Array.from({ length: n }, (_, i) => {
+              const selectedId = selections[i] ?? "";
+              const selectedName = warriors.find((w) => w.id === selectedId)?.name || "";
+
+              // en móvil ocultamos ya-seleccionados para evitar "disabled" nativo
+              const mobileOptions = warriors
+                .filter((w) => !selections.includes(w.id) || selections[i] === w.id)
+                .map((w) => ({
+                  value: w.id,
+                  label: w.name,
+                  subLabel: w.dorsal ? `#${w.dorsal}` : undefined,
+                }));
+
+              return (
+                <div key={i} style={{ marginBottom: 14 }}>
+                  {isMobile ? (
+                    <MobilePicker
+                      label={`Selección ${i + 1} *`}
+                      placeholder={`Selecciona corredor ${i + 1}...`}
+                      value={selectedId}
+                      displayValue={selectedName}
+                      options={mobileOptions}
+                      isOpen={pickerOpen === `pick-${i}`}
+                      onOpen={() => setPickerOpen(`pick-${i}`)}
+                      onClose={closePicker}
+                      onSelect={(val) => {
+                        setSelections((prev) => {
+                          const next = [...prev];
+                          next[i] = val;
+                          return next;
+                        });
+                      }}
+                    />
+                  ) : (
+                    <label>
+                      {`Selección ${i + 1} *`}
+                      <select
+                        required
+                        value={selectedId}
+                        onChange={(e) => {
+                          const warriorId = e.target.value;
+                          setSelections((prev) => {
+                            const next = [...prev];
+                            next[i] = warriorId;
+                            return next;
+                          });
+                        }}
+                      >
+                        <option value="">{`Selecciona corredor ${i + 1}...`}</option>
+                        {warriors.map((w) => {
+                          const alreadySelected = selections.includes(w.id) && selections[i] !== w.id;
+                          return (
+                            <option key={w.id} value={w.id} disabled={alreadySelected}>
+                              {w.name}
+                            </option>
+                          );
+                        })}
+                      </select>
+                    </label>
+                  )}
+                </div>
+              );
+            })}
+          </div>
         );
       }
 
       case "stage_choice": {
         const fixed = opt?.config?.fixed_stage_id;
-        return (
-          <label>
-            Predicción *
-            {fixed ? (
+
+        if (fixed) {
+          return (
+            <label>
+              Predicción *
               <input value={`Etapa fija: ${fixed}`} disabled />
+            </label>
+          );
+        }
+
+        return (
+          <>
+            {isMobile ? (
+              <MobilePicker
+                label="Predicción *"
+                placeholder="Selecciona etapa..."
+                value={answerStageId}
+                displayValue={
+                  (() => {
+                    const s = stages.find((x) => x.id === answerStageId);
+                    return s ? `Etapa ${s.stage_number} · ${s.name}` : "";
+                  })()
+                }
+                options={stageOptions.map((o) => ({ value: o.value, label: o.label, subLabel: o.subLabel }))}
+                isOpen={pickerOpen === "answerStage"}
+                onOpen={() => setPickerOpen("answerStage")}
+                onClose={closePicker}
+                onSelect={(val) => setAnswerStageId(val)}
+              />
             ) : (
-              <select required value={answerStageId} onChange={(e) => setAnswerStageId(e.target.value)}>
-                <option value="">Selecciona etapa...</option>
-                {stages
-                  .slice()
-                  .sort((a, b) => a.stage_number - b.stage_number)
-                  .map((s) => (
-                    <option key={s.id} value={s.id}>
-                      {`Etapa ${s.stage_number} · ${s.name}`}
-                    </option>
-                  ))}
-              </select>
+              <label>
+                Predicción *
+                <select required value={answerStageId} onChange={(e) => setAnswerStageId(e.target.value)}>
+                  <option value="">Selecciona etapa...</option>
+                  {stages
+                    .slice()
+                    .sort((a, b) => a.stage_number - b.stage_number)
+                    .map((s) => (
+                      <option key={s.id} value={s.id}>
+                        {`Etapa ${s.stage_number} · ${s.name}`}
+                      </option>
+                    ))}
+                </select>
+              </label>
             )}
-          </label>
+          </>
         );
       }
 
       case "choice": {
         const allowed = opt?.config?.allowed_values ?? [];
+
         return (
-          <label>
-            Predicción *
-            <select required value={value} onChange={(e) => setValue(e.target.value)}>
-              <option value="">Selecciona...</option>
-              {allowed.map((v) => (
-                <option key={v} value={v}>
-                  {v}
-                </option>
-              ))}
-            </select>
-          </label>
+          <>
+            {isMobile ? (
+              <MobilePicker
+                label="Predicción *"
+                placeholder="Selecciona..."
+                value={value}
+                displayValue={value ? String(value) : ""}
+                options={allowed.map((v) => ({ value: v, label: v }))}
+                isOpen={pickerOpen === "choice"}
+                onOpen={() => setPickerOpen("choice")}
+                onClose={closePicker}
+                onSelect={(val) => setValue(val)}
+              />
+            ) : (
+              <label>
+                Predicción *
+                <select required value={value} onChange={(e) => setValue(e.target.value)}>
+                  <option value="">Selecciona...</option>
+                  {allowed.map((v) => (
+                    <option key={v} value={v}>
+                      {v}
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
+          </>
         );
       }
 
@@ -456,6 +609,7 @@ const ChallengeDetail = () => {
       case "boolean_stage_optional": {
         const requiredIfTrue = !!opt?.config?.stage_required_if_true;
         const v = value === true || value === "true";
+
         return (
           <>
             <label>
@@ -468,24 +622,45 @@ const ChallengeDetail = () => {
             </label>
 
             {(opt.answer_type === "boolean_stage_optional" || (v && requiredIfTrue)) && (
-              <label>
-                Etapa {v && requiredIfTrue ? "*" : "(opcional)"}
-                <select
-                  value={answerStageId}
-                  onChange={(e) => setAnswerStageId(e.target.value)}
-                  required={v && requiredIfTrue}
-                >
-                  <option value="">Selecciona etapa...</option>
-                  {stages
-                    .slice()
-                    .sort((a, b) => a.stage_number - b.stage_number)
-                    .map((s) => (
-                      <option key={s.id} value={s.id}>
-                        {`Etapa ${s.stage_number} · ${s.name}`}
-                      </option>
-                    ))}
-                </select>
-              </label>
+              <>
+                {isMobile ? (
+                  <MobilePicker
+                    label={`Etapa ${v && requiredIfTrue ? "*" : "(opcional)"}`}
+                    placeholder="Selecciona etapa..."
+                    value={answerStageId}
+                    displayValue={
+                      (() => {
+                        const s = stages.find((x) => x.id === answerStageId);
+                        return s ? `Etapa ${s.stage_number} · ${s.name}` : "";
+                      })()
+                    }
+                    options={stageOptions.map((o) => ({ value: o.value, label: o.label, subLabel: o.subLabel }))}
+                    isOpen={pickerOpen === "boolStage"}
+                    onOpen={() => setPickerOpen("boolStage")}
+                    onClose={closePicker}
+                    onSelect={(val) => setAnswerStageId(val)}
+                  />
+                ) : (
+                  <label>
+                    Etapa {v && requiredIfTrue ? "*" : "(opcional)"}
+                    <select
+                      value={answerStageId}
+                      onChange={(e) => setAnswerStageId(e.target.value)}
+                      required={v && requiredIfTrue}
+                    >
+                      <option value="">Selecciona etapa...</option>
+                      {stages
+                        .slice()
+                        .sort((a, b) => a.stage_number - b.stage_number)
+                        .map((s) => (
+                          <option key={s.id} value={s.id}>
+                            {`Etapa ${s.stage_number} · ${s.name}`}
+                          </option>
+                        ))}
+                    </select>
+                  </label>
+                )}
+              </>
             )}
           </>
         );

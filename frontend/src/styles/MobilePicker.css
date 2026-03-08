@@ -1,0 +1,174 @@
+.mp-field {
+  width: 100%;
+}
+
+.mp-label {
+  color: #E0B07A;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+/* Botón que simula un input */
+.mp-trigger {
+  width: 100%;
+  background: #1A1A1A;                 /* negro web */
+  border: 1px solid #E0B07A;           /* rojo */
+  border-radius: 12px;
+  color: #fff;
+  padding: 16px 14px;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.mp-trigger-text {
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.mp-trigger-text.is-placeholder {
+  opacity: 0.7;
+}
+
+.mp-trigger-chevron {
+  font-size: 18px;
+  opacity: 0.8;
+}
+
+/* Overlay */
+.mp-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  z-index: 2000;
+}
+
+/* Drawer */
+.mp-drawer {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 70dvh;
+
+  background: #1A1A1A;                 /* negro puro */
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+
+  z-index: 2100;
+  display: flex;
+  flex-direction: column;
+
+  border-top: 2px solid #FF3B30;       /* rojo */
+  box-shadow: 0 -20px 40px rgba(0,0,0,0.6);
+}
+
+.mp-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+
+  border-bottom: 1px solid rgba(255,59,48,0.25);
+}
+
+.mp-drawer-title {
+  font-size: 1.05rem;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* X pequeña y limpia */
+.mp-close {
+  width: 30px;
+  height: 30px;
+  border-radius: 999px;
+
+  background: #1A1A1A;
+  border: 1px solid rgba(255,255,255,0.15);
+
+  color: #fff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  padding: 0;
+}
+
+.mp-close {
+  font-size: 14px; /* más pequeña */
+  line-height: 1;
+}
+
+.mp-close span {
+  font-size: 15px; /* más pequeña */
+  line-height: 1;
+}
+
+/* Lista */
+.mp-list {
+  padding: 14px;
+  overflow: auto;
+}
+
+/* 🔥 ITEMS: NEGRO + BORDE ROJO */
+.mp-item {
+  width: 100%;
+  text-align: left;
+
+  background: #1A1A1A;           /* negro */
+  border: 1px solid #E0B07A;     /* rojo */
+  border-radius: 16px;
+
+  padding: 14px 16px;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+
+  cursor: pointer;
+  color: #fff;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  transition: all 0.2s ease;
+}
+
+.mp-item:hover {
+  box-shadow: 0 0 0 1px rgba(255,59,48,0.4);
+}
+
+/* Activo: mismo negro pero borde más fuerte */
+.mp-item.active {
+  border: 2px solid #E0B07A;
+  box-shadow:
+    0 0 0 1px rgba(255,59,48,0.4),
+    0 8px 20px rgba(0,0,0,0.4);
+}
+
+.mp-item-title {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.mp-item-sub {
+  font-size: 13px;
+  color: #E0B07A;
+}
+
+/* Solo móvil */
+@media (min-width: 769px) {
+  .mp-overlay,
+  .mp-drawer {
+    display: none;
+  }
+}
+
+/* Evita que estilos globales de .challenge-form button pisen el picker */
+.challenge-form .mp-trigger,
+.challenge-form .mp-item,
+.challenge-form .mp-close {
+  background: #1A1A1A;
+}
