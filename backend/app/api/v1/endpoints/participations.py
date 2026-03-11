@@ -8,6 +8,7 @@ router = APIRouter()
 
 @router.post("/", response_model=ParticipationResponse)
 def create_participation(
-    participation: ParticipationCreate, db: Session = Depends(get_db)
+    participation: ParticipationCreate, 
+    db: Session = Depends(get_db)
 ):
     return create_new_participation(db, participation)

@@ -2,6 +2,19 @@ import React, { useEffect, useMemo, useState } from 'react';
 import '../styles/Team.css';
 import { apiClient } from '../apiClient';
 
+const BACKEND_BASE_URL =
+  process.env.REACT_APP_BACKEND_BASE_URL || "http://localhost:8000";
+
+const buildPhotoUrl = (photoUrl) => {
+  if (!photoUrl) return null;
+
+  if (photoUrl.startsWith("http://") || photoUrl.startsWith("https://")) {
+    return photoUrl;
+  }
+
+  return `${BACKEND_BASE_URL}${photoUrl}`;
+};
+
 const formatEUR = (value) => {
   const n = Number(value ?? 0);
   return n.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
@@ -12,10 +25,8 @@ const Team = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // orden por dorsal asc (cambia a raised desc si prefieres ranking)
   const sortedWarriors = useMemo(() => {
     return [...warriors].sort((a, b) => (a.dorsal ?? 0) - (b.dorsal ?? 0));
-    // return [...warriors].sort((a, b) => (b.raised ?? 0) - (a.raised ?? 0));
   }, [warriors]);
 
   useEffect(() => {
@@ -48,22 +59,39 @@ const Team = () => {
         </div>
       ) : (
         <div className="team-grid">
-          {sortedWarriors.map((w) => (
-            <article key={w.id} className="warrior-card">
-              <div className="warrior-top">
-                <div className="warrior-dorsal">#{w.dorsal}</div>
-              </div>
+          {sortedWarriors.map((w) => {
 
-              <div className="warrior-bottom">
-                <div className="warrior-name">{w.name}</div>
+            const photoUrl = buildPhotoUrl(w.photo_url);
 
-                <div className="warrior-raise">
-                  <div className="warrior-label">Recaudado</div>
-                  <div className="warrior-amount">{formatEUR(w.raised)}</div>
+            return (
+              <article key={w.id} className="warrior-card">
+                <div className="warrior-top">
+
+                  {/* FOTO */}
+                  {photoUrl && (
+                    <img
+                      src={photoUrl}
+                      alt={w.name}
+                      className="warrior-photo"
+                    />
+                  )}
+
+                  {/* DORSAL */}
+                  <div className="warrior-dorsal">#{w.dorsal}</div>
+
                 </div>
-              </div>
-            </article>
-          ))}
+
+                <div className="warrior-bottom">
+                  <div className="warrior-name">{w.name}</div>
+
+                  <div className="warrior-raise">
+                    <div className="warrior-label">Recaudado</div>
+                    <div className="warrior-amount">{formatEUR(w.raised)}</div>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
         </div>
       )}
     </div>

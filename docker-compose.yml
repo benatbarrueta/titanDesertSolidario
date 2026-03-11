@@ -7,8 +7,11 @@ services:
       dockerfile: Dockerfile
     container_name: titan_desert_backend
     restart: unless-stopped
+    env_file:
+      - backend/.env
     volumes:
       - ./titanDB/data:/data
+      - ./backend/uploads:/app/uploads
     ports:
       - "8000:8000"
     environment:

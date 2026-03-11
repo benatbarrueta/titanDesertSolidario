@@ -1,6 +1,9 @@
 # Node.js
 node_modules/
 
+# Photo uploads
+backend/uploads/*
+
 # Python
 __pycache__/
 *.pyc

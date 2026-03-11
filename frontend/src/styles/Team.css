@@ -69,14 +69,38 @@
 
 /* Top */
 .warrior-top {
+  position: relative;
   height: 140px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: linear-gradient(135deg, #E0B07A 0%, #FF3B30 75%);
+  overflow: hidden;
+}
+
+.warrior-photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.warrior-top::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.2),
+    rgba(0,0,0,0.8)
+  );
+  z-index: 1;
 }
 
 .warrior-dorsal {
+  position: relative;
+  z-index: 2;
   font-size: 4rem;
   font-weight: 600;
   color: #fff;
@@ -126,8 +150,8 @@
 
 @media (max-width: 720px) {
   .team-page {
-    margin-top: 70px;              /* igual que el header móvil */
-    padding-top: 12px;             /* opcional: un pelín de aire */
+    margin-top: 70px;
+    padding-top: 12px;
     min-height: calc(100vh - 70px);
   }
 

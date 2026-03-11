@@ -15,6 +15,7 @@ class WarriorOut(BaseModel):
     dorsal: int
     name: str
     raised: float
+    photo_url: str | None = None
 
     class Config:
         from_attributes = True

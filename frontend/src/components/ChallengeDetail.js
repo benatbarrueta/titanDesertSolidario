@@ -45,6 +45,7 @@ const ChallengeDetail = () => {
 
   // Load: challenge + warriors + stages
   useEffect(() => {
+    console.log("challengeId:", challengeId);
     setLoading(true);
     setError(null);
     setSuccessMessage(null);
@@ -63,6 +64,7 @@ const ChallengeDetail = () => {
     setAnswerStageId("");
     closePicker();
 
+    console.log("Loading challenge detail...");
     Promise.all([
       apiClient.getChallengeById(challengeId),
       apiClient.getWarriors(),
