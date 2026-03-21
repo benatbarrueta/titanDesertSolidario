@@ -16,9 +16,13 @@ def seed():
                     dorsal=101, 
                     name="Beltran Sendagorta",
                     photo_url=None),
-            Warrior(id="sergio", 
+            Warrior(id="bertran", 
                     dorsal=102, 
-                    name="Sergio Turull",
+                    name="Bertran Ráfors",
+                    photo_url=None),
+            Warrior(id="julia",
+                    dorsal=103,
+                    name="Julia Viladomiu",
                     photo_url=None),
         ]
         db.add_all(warriors)
